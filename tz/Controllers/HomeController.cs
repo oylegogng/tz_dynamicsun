@@ -20,9 +20,9 @@ namespace tz.Controllers
             _context = context;
         }
 
-        public IActionResult Button_Moscow_2010_Clicked()
+        private void FromXSLSXtoBD(string filepath)
         {
-            using (FileStream fileStream = new FileStream("Controllers/ExcelFiles/moskva_2010.xlsx", FileMode.Open, FileAccess.Read))
+            using (FileStream fileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read))
             {
                 XSSFWorkbook workbook = new XSSFWorkbook(fileStream);
 
@@ -57,131 +57,30 @@ namespace tz.Controllers
 
                 _context.SaveChanges();
             }
+        }
 
+        public IActionResult Button_Moscow_2010_Clicked()
+        {
+            FromXSLSXtoBD("Controllers/ExcelFiles/moskva_2010.xlsx");
             return RedirectToAction("UploadWeatherArchive");
         }
 
         public IActionResult Button_Moscow_2011_Clicked()
         {
-            using (FileStream fileStream = new FileStream("Controllers/ExcelFiles/moskva_2011.xlsx", FileMode.Open, FileAccess.Read))
-            {
-                XSSFWorkbook workbook = new XSSFWorkbook(fileStream);
-
-                foreach (ISheet sheet in workbook)
-                {
-                    for (int i = (sheet.FirstRowNum + 4); i <= sheet.LastRowNum; i++)
-                    {
-                        IRow row = sheet.GetRow(i);
-                        if (row == null || row.GetCell(0) == null)
-                        {
-                            break;
-                        }
-
-                        WeatherData weatherData = new WeatherData();
-
-                        weatherData.Date = DateTime.TryParse(row.GetCell(0).ToString(), out DateTime date) ? date : DateTime.MinValue;
-                        weatherData.MoscowTime = TimeSpan.TryParse(row.GetCell(1).ToString(), out TimeSpan time) ? time : TimeSpan.MinValue;
-                        weatherData.Temperature = double.TryParse(row.GetCell(2).ToString(), out double temp) ? temp : 0;
-                        weatherData.Humidity = int.TryParse(row.GetCell(3).ToString(), out int humidity) ? humidity : 0;
-                        weatherData.DewPoint = double.TryParse(row.GetCell(4).ToString(), out double dewPoint) ? dewPoint : 0;
-                        weatherData.Pressure = int.TryParse(row.GetCell(5).ToString(), out int pressure) ? pressure : 0;
-                        weatherData.WindDirection = row.GetCell(6)?.ToString() ?? "none";
-                        weatherData.WindSpeed = int.TryParse(row.GetCell(7).ToString(), out int windSpeed) ? windSpeed : 0;
-                        weatherData.Cloudiness = int.TryParse(row.GetCell(8).ToString(), out int cloudiness) ? cloudiness : 0;
-                        weatherData.H = int.TryParse(row.GetCell(9).ToString(), out int h) ? h : 0;
-                        weatherData.VV = int.TryParse(row.GetCell(10).ToString(), out int vv) ? vv : 0;
-                        weatherData.WeatherPhenomena = row.GetCell(11)?.ToString() ?? "none";
-
-                        _context.WeatherData.Add(weatherData);
-                    }
-                }
-
-                _context.SaveChanges();
-            }
-
+            FromXSLSXtoBD("Controllers/ExcelFiles/moskva_2011.xlsx");
             return RedirectToAction("UploadWeatherArchive");
         }
 
         public IActionResult Button_Moscow_2012_Clicked()
         {
 
-            using (FileStream fileStream = new FileStream("Controllers/ExcelFiles/moskva_2012.xlsx", FileMode.Open, FileAccess.Read))
-            {
-                XSSFWorkbook workbook = new XSSFWorkbook(fileStream);
-
-                foreach (ISheet sheet in workbook)
-                {
-                    for (int i = (sheet.FirstRowNum + 4); i <= sheet.LastRowNum; i++)
-                    {
-                        IRow row = sheet.GetRow(i);
-                        if (row == null || row.GetCell(0) == null)
-                        {
-                            break;
-                        }
-
-                        WeatherData weatherData = new WeatherData();
-
-                        weatherData.Date = DateTime.TryParse(row.GetCell(0).ToString(), out DateTime date) ? date : DateTime.MinValue;
-                        weatherData.MoscowTime = TimeSpan.TryParse(row.GetCell(1).ToString(), out TimeSpan time) ? time : TimeSpan.MinValue;
-                        weatherData.Temperature = double.TryParse(row.GetCell(2).ToString(), out double temp) ? temp : 0;
-                        weatherData.Humidity = int.TryParse(row.GetCell(3).ToString(), out int humidity) ? humidity : 0;
-                        weatherData.DewPoint = double.TryParse(row.GetCell(4).ToString(), out double dewPoint) ? dewPoint : 0;
-                        weatherData.Pressure = int.TryParse(row.GetCell(5).ToString(), out int pressure) ? pressure : 0;
-                        weatherData.WindDirection = row.GetCell(6)?.ToString() ?? "none";
-                        weatherData.WindSpeed = int.TryParse(row.GetCell(7).ToString(), out int windSpeed) ? windSpeed : 0;
-                        weatherData.Cloudiness = int.TryParse(row.GetCell(8).ToString(), out int cloudiness) ? cloudiness : 0;
-                        weatherData.H = int.TryParse(row.GetCell(9).ToString(), out int h) ? h : 0;
-                        weatherData.VV = int.TryParse(row.GetCell(10).ToString(), out int vv) ? vv : 0;
-                        weatherData.WeatherPhenomena = row.GetCell(11)?.ToString() ?? "none";
-
-                        _context.WeatherData.Add(weatherData);
-                    }
-                }
-
-                _context.SaveChanges();
-            }
-
+            FromXSLSXtoBD("Controllers/ExcelFiles/moskva_2012.xlsx");
             return RedirectToAction("UploadWeatherArchive");
         }
 
         public IActionResult Button_Moscow_2013_Clicked()
         {
-            using (FileStream fileStream = new FileStream("Controllers/ExcelFiles/moskva_2013.xlsx", FileMode.Open, FileAccess.Read))
-            {
-                XSSFWorkbook workbook = new XSSFWorkbook(fileStream);
-
-                foreach (ISheet sheet in workbook)
-                {
-                    for (int i = (sheet.FirstRowNum + 4); i <= sheet.LastRowNum; i++)
-                    {
-                        IRow row = sheet.GetRow(i);
-                        if (row == null || row.GetCell(0) == null)
-                        {
-                            break;
-                        }
-
-                        WeatherData weatherData = new WeatherData();
-
-                        weatherData.Date = DateTime.TryParse(row.GetCell(0).ToString(), out DateTime date) ? date : DateTime.MinValue;
-                        weatherData.MoscowTime = TimeSpan.TryParse(row.GetCell(1).ToString(), out TimeSpan time) ? time : TimeSpan.MinValue;
-                        weatherData.Temperature = double.TryParse(row.GetCell(2).ToString(), out double temp) ? temp : 0;
-                        weatherData.Humidity = int.TryParse(row.GetCell(3).ToString(), out int humidity) ? humidity : 0;
-                        weatherData.DewPoint = double.TryParse(row.GetCell(4).ToString(), out double dewPoint) ? dewPoint : 0;
-                        weatherData.Pressure = int.TryParse(row.GetCell(5).ToString(), out int pressure) ? pressure : 0;
-                        weatherData.WindDirection = row.GetCell(6)?.ToString() ?? "none";
-                        weatherData.WindSpeed = int.TryParse(row.GetCell(7).ToString(), out int windSpeed) ? windSpeed : 0;
-                        weatherData.Cloudiness = int.TryParse(row.GetCell(8).ToString(), out int cloudiness) ? cloudiness : 0;
-                        weatherData.H = int.TryParse(row.GetCell(9).ToString(), out int h) ? h : 0;
-                        weatherData.VV = int.TryParse(row.GetCell(10).ToString(), out int vv) ? vv : 0;
-                        weatherData.WeatherPhenomena = row.GetCell(11)?.ToString() ?? "none";
-
-                        _context.WeatherData.Add(weatherData);
-                    }
-                }
-
-                _context.SaveChanges();
-            }
-
+            FromXSLSXtoBD("Controllers/ExcelFiles/moskva_2013.xlsx");
             return RedirectToAction("UploadWeatherArchive");
         }
 
