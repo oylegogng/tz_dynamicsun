@@ -1,0 +1,56 @@
+﻿@model List<WeatherData> // Указание модели представления
+
+@{
+    ViewData["Title"] = "Weather Archive";
+}
+
+<h1>Weather Archive</h1>
+
+<form asp-controller="Home" asp-action="WeatherArchive" method="get">
+    <label for="year">Year:</label>
+    <input type="number" id="year" name="year" min="2000" max="2100" value="@ViewBag.SelectedYear">
+
+    <label for="month">Month:</label>
+    <input type="number" id="month" name="month" min="1" max="12" value="@ViewBag.SelectedMonth">
+
+    <button type="submit">Show Weather</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Время</th>
+            <th>Температура</th>
+            <th>Относительная влажность воздуха</th>
+            <th>Точка росы</th>
+            <th>Атмосферное давление</th>
+            <th>Направление ветра</th>
+            <th>Скорость ветра</th>
+            <th>Облачность</th>
+            <th>H</th>
+            <th>VV</th>
+            <th>Погодные явления</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Date</td>
+                <td>@item.MoscowTime</td>
+                <td>@item.Temperature</td>
+                <td>@item.Humidity</td>
+                <td>@item.DewPoint</td>
+                <td>@item.Pressure</td>
+                <td>@item.WindDirection</td>
+                <td>@item.WindSpeed</td>
+                <td>@item.Cloudiness</td>
+                <td>@item.H</td>
+                <td>@item.VV</td>
+                <td>@item.WeatherPhenomena</td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
